@@ -1,4 +1,4 @@
-package turniplabs.examplemod;
+package bluemoonjune.baskettipping;
 
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
