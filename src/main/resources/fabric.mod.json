@@ -35,8 +35,10 @@
       "baskettipping.mixins.json"
   ],
 
+  "accessWidener": "baskettipping.accesswidener",
+
   "depends": {
-		"minecraft": "^7.2-beta",
+		"minecraft": "^7.3-beta",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {
