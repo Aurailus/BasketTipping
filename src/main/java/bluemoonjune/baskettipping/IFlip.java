@@ -1,5 +1,7 @@
 package bluemoonjune.baskettipping;
 
+import net.minecraft.core.world.World;
+
 public interface IFlip {
-	public void setFlipTime(int flipTime);
+	void flip(int flipTime);
 }

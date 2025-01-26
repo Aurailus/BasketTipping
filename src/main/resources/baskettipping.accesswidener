@@ -1,2 +1,3 @@
 accessWidener v2 named
 accessible class net/minecraft/core/block/entity/TileEntityBasket$BasketEntry
+accessible method net/minecraft/core/block/entity/TileEntityBasket updateNumUnits ()V
