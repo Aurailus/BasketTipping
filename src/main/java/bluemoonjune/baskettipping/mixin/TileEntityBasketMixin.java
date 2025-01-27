@@ -9,6 +9,7 @@ import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.entity.TileEntityBasket;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
@@ -47,6 +48,9 @@ public abstract class TileEntityBasketMixin extends TileEntity implements IFlip 
 			}
 		}
 	}
+
+	@Shadow
+	public abstract void updateNumUnits();
 
 	@Override
 	public void flip(int flipTime) {
@@ -90,7 +94,7 @@ public abstract class TileEntityBasketMixin extends TileEntity implements IFlip 
 				this.contents.remove(entry);
 			}
 
-			((TileEntityBasket)(TileEntity)this).updateNumUnits();
+			updateNumUnits();
 			worldObj.notifyBlockChange(this.x, this.y, this.z, Blocks.BASKET.id());
 			return;
 		}
@@ -138,5 +142,23 @@ public abstract class TileEntityBasketMixin extends TileEntity implements IFlip 
 			ci.cancel();
 		}
 	}
+
+	@Shadow
+	private int numUnitsInside;
+
+	@Shadow
+	protected abstract int getItemSizeUnits(Item item);
+	@Shadow
+	public abstract int getMaxUnits();
+
+	@Inject(
+		method = "importItemStack",
+		at = @At(value = "RETURN", ordinal = 1),
+		remap = false
+	)
+	public void overflowPatch(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+		updateNumUnits();
+	}
+
 
 }
